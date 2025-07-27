@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+.container {
+  max-width: 400px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="checkbox"] {
+  width: 100%;
+  margin-top: 5px;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #4285f4;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #357ae8;
+}
+
+#message {
+  margin-top: 20px;
+  text-align: center;
+  color: green;
+}
