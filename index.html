@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .party {
+            margin: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .results {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <h1>🗳️ Vote for Your Party</h1>
+    <div id="voting-section">
+        <div class="party">
+            <button onclick="vote('Party A')">Vote Party A</button>
+            <span id="Party A">0</span> votes
+        </div>
+        <div class="party">
+            <button onclick="vote('Party B')">Vote Party B</button>
+            <span id="Party B">0</span> votes
+        </div>
+        <div class="party">
+            <button onclick="vote('Party C')">Vote Party C</button>
+            <span id="Party C">0</span> votes
+        </div>
+        <div class="party">
+            <button onclick="vote('Party D')">Vote Party D</button>
+            <span id="Party D">0</span> votes
+        </div>
+        <div class="results" id="result-message"></div>
+    </div>
+
+    <script>
+        let totalVotes = 0;
+        const maxVotes = 20;
+        const voteCounts = {
+            "Party A": 0,
+            "Party B": 0,
+            "Party C": 0,
+            "Party D": 0
+        };
+
+        function vote(party) {
+            if (totalVotes >= maxVotes) {
+                document.getElementById("result-message").innerText = "🛑 Voting has ended! All 20 voters have voted.";
+                return;
+            }
+
+            voteCounts[party] += 1;
+            totalVotes += 1;
+            document.getElementById(party).innerText = voteCounts[party];
+
+            if (totalVotes === maxVotes) {
+                document.getElementById("result-message").innerText = "✅ Voting completed!";
+                disableVoting();
+            }
+        }
+
+        function disableVoting() {
+            const buttons = document.querySelectorAll("button");
+            buttons.forEach(button => button.disabled = true);
+        }
+    </script>
+</body>
+</html>
