@@ -1,86 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Voting App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-        }
-        .party {
-            margin: 15px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 5px;
-        }
-        .results {
-            margin-top: 30px;
-            font-size: 18px;
-            color: #444;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to the App</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <h1>🗳️ Vote for Your Party</h1>
-    <div id="voting-section">
-        <div class="party">
-            <button onclick="vote('Party A')">Vote Party A</button>
-            <span id="Party A">0</span> votes
-        </div>
-        <div class="party">
-            <button onclick="vote('Party B')">Vote Party B</button>
-            <span id="Party B">0</span> votes
-        </div>
-        <div class="party">
-            <button onclick="vote('Party C')">Vote Party C</button>
-            <span id="Party C">0</span> votes
-        </div>
-        <div class="party">
-            <button onclick="vote('Party D')">Vote Party D</button>
-            <span id="Party D">0</span> votes
-        </div>
-        <div class="results" id="result-message"></div>
-    </div>
+  <div class="container">
+    <h1>Welcome!</h1>
+    <p>Please provide your consent to continue:</p>
+    <form id="consentForm">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" required />
 
-    <script>
-        let totalVotes = 0;
-        const maxVotes = 20;
-        const voteCounts = {
-            "Party A": 0,
-            "Party B": 0,
-            "Party C": 0,
-            "Party D": 0
-        };
+      <label for="email">Email or Phone (optional):</label>
+      <input type="text" id="email" />
 
-        function vote(party) {
-            if (totalVotes >= maxVotes) {
-                document.getElementById("result-message").innerText = "🛑 Voting has ended! All 20 voters have voted.";
-                return;
-            }
+      <label>
+        <input type="checkbox" id="consentCheckbox" required />
+        I give consent to use my activity data to improve the app.
+      </label>
 
-            voteCounts[party] += 1;
-            totalVotes += 1;
-            document.getElementById(party).innerText = voteCounts[party];
+      <button type="submit">Submit</button>
+    </form>
+    <p id="message"></p>
+  </div>
 
-            if (totalVotes === maxVotes) {
-                document.getElementById("result-message").innerText = "✅ Voting completed!";
-                disableVoting();
-            }
-        }
-
-        function disableVoting() {
-            const buttons = document.querySelectorAll("button");
-            buttons.forEach(button => button.disabled = true);
-        }
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
