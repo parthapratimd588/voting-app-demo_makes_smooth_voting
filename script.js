@@ -1,84 +1,42 @@
-const mockDatabase = {
-  "users": [
-    { "username": "user1", "password": "pass1", "voted": false },
-    { "username": "user2", "password": "pass2", "voted": true }
-  ],
-  "votes": [
-    { "option": "Option A", "count": 10 },
-    { "option": "Option B", "count": 5 }
-  ]
-};
+document.addEventListener('DOMContentLoaded', () => {
+  const mockData = [
+    { name: "Amit", email: "amit@example.com", party: "Party A" },
+    { name: "Sneha", email: "sneha@example.com", party: "Party B" },
+    { name: "Raj", email: "raj@example.com", party: "Party A" },
+    { name: "Priya", email: "priya@example.com", party: "Party C" },
+    { name: "Kabir", email: "kabir@example.com", party: "Party B" },
+    { name: "Neha", email: "neha@example.com", party: "Party A" },
+    { name: "Aditya", email: "aditya@example.com", party: "Party A" },
+    { name: "Divya", email: "divya@example.com", party: "Party C" },
+    { name: "Yash", email: "yash@example.com", party: "Party B" },
+    { name: "Riya", email: "riya@example.com", party: "Party A" },
+    { name: "Tanvi", email: "tanvi@example.com", party: "Party B" },
+    { name: "Harsh", email: "harsh@example.com", party: "Party A" },
+    { name: "Isha", email: "isha@example.com", party: "Party C" },
+    { name: "Vikram", email: "vikram@example.com", party: "Party B" },
+    { name: "Megha", email: "megha@example.com", party: "Party C" },
+    { name: "Arjun", email: "arjun@example.com", party: "Party A" },
+    { name: "Simran", email: "simran@example.com", party: "Party B" },
+    { name: "Rohan", email: "rohan@example.com", party: "Party A" },
+    { name: "Pooja", email: "pooja@example.com", party: "Party B" },
+    { name: "Anjali", email: "anjali@example.com", party: "Party C" }
+  ];
 
-document.addEventListener("DOMContentLoaded", function () {
-  const welcomeDiv = document.getElementById("welcomePage");
-  const loginDiv = document.getElementById("loginPage");
-  const dashboardDiv = document.getElementById("dashboardPage");
+  const voteResultsDiv = document.getElementById('voteResults');
 
-  const loginBtn = document.getElementById("loginBtn");
-  const usernameInput = document.getElementById("username");
-  const passwordInput = document.getElementById("password");
-  const errorMsg = document.getElementById("error");
-
-  const optionA = document.getElementById("optionA");
-  const optionB = document.getElementById("optionB");
-  const submitVote = document.getElementById("submitVote");
-
-  const resultText = document.getElementById("result");
-  const backBtn = document.getElementById("backBtn");
-
-  // Navigation
-  document.getElementById("startVoting").addEventListener("click", () => {
-    welcomeDiv.style.display = "none";
-    loginDiv.style.display = "block";
+  // Tally votes by party
+  const partyCounts = {};
+  mockData.forEach(entry => {
+    const party = entry.party;
+    partyCounts[party] = (partyCounts[party] || 0) + 1;
   });
 
-  loginBtn.addEventListener("click", () => {
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
-    const user = mockDatabase.users.find(
-      (u) => u.username === username && u.password === password
-    );
+  // Generate result HTML
+  let resultHTML = `<h2>Total Votes per Party</h2><ul>`;
+  for (const [party, count] of Object.entries(partyCounts)) {
+    resultHTML += `<li><strong>${party}</strong>: ${count} votes</li>`;
+  }
+  resultHTML += `</ul>`;
 
-    if (!user) {
-      errorMsg.textContent = "Invalid credentials!";
-      return;
-    }
-
-    if (user.voted) {
-      errorMsg.textContent = "You have already voted!";
-      return;
-    }
-
-    errorMsg.textContent = "";
-    loginDiv.style.display = "none";
-    dashboardDiv.style.display = "block";
-  });
-
-  submitVote.addEventListener("click", () => {
-    const selected = optionA.checked ? "Option A" : optionB.checked ? "Option B" : null;
-
-    if (!selected) {
-      alert("Please select an option to vote.");
-      return;
-    }
-
-    // Update vote count
-    const vote = mockDatabase.votes.find((v) => v.option === selected);
-    vote.count += 1;
-
-    // Mark user as voted (for simplicity, first matching unvoted user)
-    const user = mockDatabase.users.find((u) => !u.voted);
-    if (user) user.voted = true;
-
-    resultText.textContent = `You voted for ${selected}. Current Results:\n` +
-      mockDatabase.votes.map(v => `${v.option}: ${v.count}`).join("\n");
-
-    optionA.checked = false;
-    optionB.checked = false;
-    submitVote.disabled = true;
-  });
-
-  backBtn.addEventListener("click", () => {
-    location.reload();
-  });
+  voteResultsDiv.innerHTML = resultHTML;
 });
